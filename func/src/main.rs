@@ -1,6 +1,5 @@
 fn main() {
-    for number in (1..4).rev(){
-        println!("{}!",number);
-    }
-    println!("LEFTOFF!");
+    let mut s = String::from("Hello");
+    s.push_str(",world");
+    println!("{}",s);
 }
