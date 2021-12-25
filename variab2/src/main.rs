@@ -4,3 +4,4 @@ fn main() {
     let (x,y,z) = tup;
     println!("{},{},{}",x,y,z);
 }
+
