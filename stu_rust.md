@@ -246,4 +246,89 @@ drop函数
 - 开始索引是切片起始位置的索引值
 - 结束索引是切片终止位置的下一个索引值
 
+---
 
+## struct
+
+### 定义并实例化struct
+
+struct 结构体
+定义struct
+使用struct关键字,并为整个struct命名
+在花括号内,为所有字段(Field)定义名称和类型
+
+实例化struct,可以不用顺序初始化
+
+取得struct里面的某个值,使用点标记法.
+**一旦struct的实例是可变的,那么实例中所有的字段都是可变的**
+
+字段初始化简写
+当字段名与字段值对应变量名相同时,就可以使用简写的方式
+```rust
+fn build_user(email: String,username: String) -> User{
+    User {
+        email, //email:email 变量名与形参同名可以简写
+        username,//username:username
+        active:True,
+        sign_in_count:0,
+    }
+}
+```
+
+### struct更新语法
+当想基于某个struct实例来差UN构建一个IE新实例的时候,可以使用### struct更新语法
+```rust
+//基于user1构建新的user2
+let user2 = User{
+    emain:String::from("3035@qq.com"),
+    username:String::from("anthoni"),
+    ..user1
+}
+```
+
+### Tuple struct 
+可以定义类似tuple的struct
+Tuple struct整体有个名字,里面的元素没有名字.
+定义tuple struct,使用struct关键字,后边是名字,以及里面的元素类型
+`struct Color(i32,i32,i32)`
+
+### Unit-Like Struct
+可以定义没有任何字段的struct
+
+### struct数据的所有权
+
+声明struct使用String而不是&str:
+该struct实例拥有其所有的数据
+只要struct实例是有效的,那么里面的字段数据也是有效的
+
+struct里也可以存放引用,但需要使用生命周期
+
+### struct的打印
+std::fmt::Display无法直接打印
+需要借助于`std::fmt::Debug`
+利用`#[derive(Debug)]`注解
+`{:?} && {:#:}` debug打印时使用的格式 
+
+### struct的方法
+
+方法和函数类似:fn关键字/名称/参数/返回值
+定义方法:
+在impl块里定义方法.
+方法的第一个参数可以是&self,也可以获得其所有权或可变借用.和其他参数一样
+更良好的代码组织.
+方法调用的运算符
+在调用方法时,Rust根据情况自动添加&,&mut或*,以便object可以匹配方法的签名
+
+### 关联函数
+
+可以在impl块里定义不把self作为第一个参数的函数,他们叫关联函数
+关联函数通常用于构造器
+`::`符号
+- 关联函数
+- 模块创建的命名空间
+
+### 多个impl块
+
+每个struct允许拥有多个impl块
+
+---
