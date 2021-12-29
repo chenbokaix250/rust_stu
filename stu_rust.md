@@ -332,3 +332,41 @@ std::fmt::Display无法直接打印
 每个struct允许拥有多个impl块
 
 ---
+
+## 枚举
+
+### enum
+
+枚举允许列举所有可能的值来定义一个类型
+`enum 标识符{1,2}`
+
+允许将数据附加到枚举的变体中
+优点:
+1. 不需要额外使用struct
+2. 每个变体可以拥有不同的类型以及关联的数据量
+
+### Option 枚举
+* Rust没有Null
+* Rust中类似Null的枚举 Option<T>
+Option<i32> 与i32 不是一个类型
+若想使用Option<T>中的T,必须将它转换为T
+
+
+### match 控制流运算符
+
+match匹配时,必须穷举所有可能
+
+_通配符:替代其余没列出的值
+
+### if let 
+处理只关心一种匹配而忽略其它匹配的情况
+```rust
+match v{
+    Some(3) => println!("three"),
+    _=>(),
+}
+//if let
+if let Some(3) = v{println!("three:);}
+```
+也就放弃了穷举的可能
+if let看作是match的语法糖
