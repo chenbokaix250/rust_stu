@@ -370,3 +370,73 @@ if let Some(3) = v{println!("three:);}
 ```
 也就放弃了穷举的可能
 if let看作是match的语法糖
+
+---
+
+## Package crate module
+
+Rust的代码组织:
+代码组织主要包括:
+哪些细节可以暴露,哪些细节是私有的
+作用域内哪些名称有效
+
+模块系统:
+**package**:包,Cargo的特性,让你构建/测试/共享crate
+**Crate**:单元包,一个模块树,可产生一个library或可执行文件
+**Module**:use 控制代码的组织/作用域/私有路径
+**Path**: 路径,为struct,function或module等命名的方式
+
+Crate的类型:
+binary
+library
+CrateRoot:
+是源代码文件
+Rust编译器是从这里开始 组成你得Crate的根Module
+
+一个Package:
+* 包含1个Cargo.toml,它描述如何构建这些Crates
+* 只能包含0-1个library crate
+* 可以包含任意数量的binary crate
+* 但必须至少包含一个crate
+
+
+cargo的惯例
+
+src/main.rs
+-binary crate的crate root
+-crate名与package名相同
+
+src/lib.rs
+-package包含一个library crate
+-library crate的crate root
+-crate名与package名相同
+
+cargo把crate root文件交给rustc来构建library或binary
+
+一个package可以同时包含main.rs和lib.rs
+一个binary crate 一个library crate
+
+crate的作用
+将相关功能组合到一个作用域内,便于在项目间共享(防止冲突)
+
+**定义module来控制作用域和私有性**
+
+Module,在一个crate内,将代码进行分组
+控制项目的私有性,public,pricate
+
+建立module:
+mod关键字
+可嵌套
+可包含其他项,(struct,enum,常量,trait,函数等)的定义
+模块不仅可以组织代码,还可以定义私有边界
+如果想把函数或者struct等设为私有,可以将它放到某个模块中.
+**rust中所有的条目(函数/方法/struct/enum/模块/常量)默认都是私有的**
+父级模块无法访问子模块中的私有条目
+子模块里可以使用所有祖先模块中的条目
+
+super关键字
+super用来访问父级模块路径中的内容,类似文件系统中的 `..`
+
+pub struct 可以用于声明公共结构体(成员仍然私有)
+pub enum 可以用于声明公共枚举(变体为公共)
+**struct与enum 规则不同**
