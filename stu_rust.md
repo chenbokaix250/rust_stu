@@ -466,3 +466,82 @@ pub use:重导出
 * 模块树的结构不会变化
 
 随着模块逐渐变大,该技术让你可以把模块的内容移动到其他文件中.
+
+---
+
+## 8.常用的集合
+
+### vector
+使用Vector存储多个值
+Vec<T>,叫做vector
+* 由标准库提供
+* 可存储多个值
+* 只能存储相同类型的数据
+* 值在内存中连续存放
+
+利用push进行添加元素
+当离开作用域后,vect会被清零
+
+读取vector的值
+1.利用引用
+2.get方法
+
+所有权和借用规则
+* 不能在同一作用域内同时拥有可变和不可变引用
+
+利用enum配合vector 可以实现对enum的可变操作
+
+### string类型
+
+Rust倾向于暴露可能的错误
+字符串数据结构复杂
+utf-8
+
+字符串是byte的集合,能将byte解析为文本
+
+Rust核心语言层面,只有一个字符串类型:字符串切片str(或&str)
+
+String类型来自标准库,而不是核心语言
+
+创建一个新的字符串String
+* 很多Vector<T>的操作都可用于String
+* String::new()函数
+* 使用初始值来创建String;
+    1.利用to_string方法
+    2.使用String::from函数
+* 更新String
+    1. push_str()方法:把字符串切片,进行附加
+    2. push()方法:把单个字符附加
+    3. +运算符:对字符串进行拼接(解引用强制转换)
+* format! 进行拼接
+
+对String按索引的形式进行访问
+rust语法不支持
+string是对Vector<u8>类型的包装.
+
+RUst有三种看待字符串的方式:
+- 字节
+- 标量值
+- 字形簇
+
+切割String
+利用`&str[0..4]`切片获取
+
+### HasgMap<K,V>
+键值对的形式存储数据,一个键对应一个值
+Hash函数:决定如何在内存中存放K和V
+
+HashMap:
+* HashMap用的较少,不在Prelude中
+* 标准库对其支持较少,没有内置的宏来创建HashMap
+* 数据存储在heap上
+* 同构性:
+    所有K必须是同一种类型
+
+利用collect方法创建HashM,利用拉链函数组装
+
+访问HashMap中的值
+get方法,参数K,返回Option<&V>
+
+更新HashMap时,利用entry方法,可以确认是否存在K,如果存在,不插入更新,不存在则插入更新.
+Entry的or_intert()方法
